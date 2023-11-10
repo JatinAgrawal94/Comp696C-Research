@@ -20,25 +20,29 @@ public class home{
         long startTime = System.currentTimeMillis();
         Box b=new Box();
         Dimension d=new Dimension();
-        // read data from csv
-
-        b.readFromCSV("./Datasets/1_D_Test2_input_Height.csv");
-        ArrayList<List<String>> data= b.getCSV();
-
-        d.readFromCSV("./Datasets/length-weight.csv");
+        d.readFromCSV("./Datasets/constraints.csv");
         ArrayList<List<String>> constraints= d.getCSV();
-
-        Algorithms alg=new Algorithms(data, constraints);
-        try {
-            int[][] result=new int[12][constraints.get(0).size()];
-            result=alg.runAll();
-            alg.saveToCSV(result);
-        } catch (Exception e) {
-            System.out.println(e);        
+        // read data from csv
+        List<String> sets=new ArrayList<String>();
+        sets.add("boxdataset-1k.csv");
+        sets.add("1-D_Test2_input_Length.csv");
+        sets.add("1-D_Test2_input_Width.csv");
+        sets.add("1-D_Test2_input_Height.csv");
+        for(int i=0;i<sets.size();i++){
+            b.readFromCSV("./Datasets/"+sets.get(i));
+            ArrayList<List<String>> data= b.getCSV();
+            Algorithms alg=new Algorithms(data, constraints);
+            try {
+                int[][] result=new int[12][constraints.get(0).size()];
+                result=alg.runAll();
+                alg.saveToCSV(result,sets.get(i));
+            } catch (Exception e) {
+                System.out.println(e);        
+            }
+            long endTime = System.currentTimeMillis();
+            long timeTaken=endTime-startTime;
+            System.out.println(timeTaken);
         }
-        long endTime = System.currentTimeMillis();
-        long timeTaken=endTime-startTime;
-        System.out.println(timeTaken);
     }
 }
 
@@ -215,8 +219,8 @@ class Algorithms{
         return result;
     }
 
-    void saveToCSV(int[][] result){
-        String csvFile = "./Results/1_D_Test_2_Height.csv"; // Your CSV file name
+    void saveToCSV(int[][] result,String path){
+        String csvFile = "./Results/"+path; // Your CSV file name
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(csvFile))) {
             // Writing data to the CSV file
             writer.write("Max_Length, Max_Weight,Next_Fit_Length,Next_Fit_Width,Next_Fit_Height,First_Fit_Length,First_Fit_Width,First_Fit_Height,Best_Fit_W_L,Best_Fit_W_W,Best_Fit_W_H,Best_Fit_D_L,Best_Fit_D_W,Best_Fit_D_H\n"); // Header row
