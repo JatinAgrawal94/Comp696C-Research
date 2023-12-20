@@ -73,7 +73,7 @@ public class home{
         int result_bins;
         String result="";
         String header="Max_Length,Max_Weight,Input_Length,Input_Weight,Next_Fit,First_Fit,Best_Fit_W_L,Best_Fit_W_W\n";
-        String filename="./L_Range";
+        String filename="./New_Results/L_Range";
         csv.addHeader(header,filename+"1.csv");
 
         for(int i=0;i<100;i++){
