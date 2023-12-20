@@ -83,7 +83,7 @@ public class Algorithms {
         }        
         return res;
     }
-    int bestFit_D(Float max_w,Float max_l,int d,float[] length,float[] weight)
+    int bestFit_D(Float max_w,Float max_l,float[] length,float[] weight)
     {   
         float[] rem_w=new float[weight.length];
         float[] rem_l=new float[weight.length];

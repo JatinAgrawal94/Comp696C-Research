@@ -46,3 +46,7 @@ Range Length :
 26<L<=36
 
 36<L<=45.7847091
+
+Results
+L_Range% shows csv files in which weight is independent on the side/length.
+LW_Range% shows csv files in which weight is dependent of the side/length.

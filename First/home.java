@@ -30,6 +30,13 @@ public class home{
         randomnumbers=(float)((Math.random() * (maxValue - minValue + 1) + minValue));
         return randomnumbers;
     }
+    private static float[] generateWeight(float[] length){
+        float[] weight=new float[10];
+        for(int i=0;i<weight.length;i++){
+            weight[i]=(float)(length[i]*0.025*9.8);
+        }
+        return weight;
+    }
 
     private static String getInputString(float[] strig){
         String input="[";
@@ -47,7 +54,9 @@ public class home{
         String result="";
         Algorithms alg=new Algorithms();
         result+=String.valueOf(alg.next_fit(max_w, max_l, length, weight))+",";
-        result+=String.valueOf(alg.next_fit(max_w, max_l, length, weight))+",";
+        result+=String.valueOf(alg.first_fit(max_w, max_l, length, weight))+",";
+        result+=String.valueOf(alg.bestFit_Weight(max_w, max_l, length, weight))+",";
+        result+=String.valueOf(alg.bestFit_D(max_w, max_l, length, weight));
         return result;
     }
 
@@ -57,27 +66,51 @@ public class home{
         Algorithms algorithm=new Algorithms();
         CSV csv=new CSV();
         float[] random_length=new float[10];
-        float[] random_width=new float[10];
-        float[] random_height=new float[10];
+        
         float[] random_weight=new float[10];
-        float max_length;
-        float max_weight;
+        float max_length=0;
+        float max_weight=0;
         int result_bins;
         String result="";
-        String header="Max_Length,Max_Weight,Input_Length,Input_Weight,Next_Fit_Length,First_Fit_Length,Best_Fit_W_L,Best_Fit_W_W\n";
-        csv.addHeader(header,"./first.csv");
+        String header="Max_Length,Max_Weight,Input_Length,Input_Weight,Next_Fit,First_Fit,Best_Fit_W_L,Best_Fit_W_W\n";
+        String filename="./L_Range";
+        csv.addHeader(header,filename+"1.csv");
+
         for(int i=0;i<100;i++){
             random_length=generateRandomNumbers(6.0093178,16,10);
+            // random_weight=generateWeight(random_length);
             random_weight=generateRandomNumbers(30,530,10);
             max_length=generateSingleValue(6.0093178, 44.3, 10);
             max_weight=generateSingleValue(30, 530, 10);
             result_bins=algorithm.next_fit(max_weight, max_length, random_length, random_weight);
-            result=Float.toString(max_length)+", "+Float.toString(max_length)+", "+getInputString(random_length)+", "+getInputString(random_weight)+", "+String.valueOf(result_bins)+",,,"+"\n";
-            csv.addRow(result, "./first.csv");
-            }
-        // generate 10 pairs of values for length and weightwithin given range and th
-        
-        
+            result=Float.toString(max_length)+", "+Float.toString(max_weight)+", "+getInputString(random_length)+", "+getInputString(random_weight)+", "+runALL(max_weight, max_length, random_length, random_weight)+"\n";
+            csv.addRow(result, filename+"1.csv");
+        }
+        csv.addHeader(header,filename+"2.csv");
+
+        for(int i=0;i<100;i++){
+            random_length=generateRandomNumbers(16,26,10);
+            // random_weight=generateWeight(random_length);
+            random_weight=generateRandomNumbers(30,530,10);
+            max_length=generateSingleValue(6.0093178, 44.3, 10);
+            max_weight=generateSingleValue(30, 530, 10);
+            result_bins=algorithm.next_fit(max_weight, max_length, random_length, random_weight);
+            result=Float.toString(max_length)+", "+Float.toString(max_weight)+", "+getInputString(random_length)+", "+getInputString(random_weight)+", "+runALL(max_length,max_weight, random_length, random_weight)+"\n";
+            csv.addRow(result, filename+"2.csv");
+        }
+        csv.addHeader(header,filename+"3.csv");
+
+        for(int i=0;i<100;i++){
+            random_length=generateRandomNumbers(26,36,10);
+            // random_weight=generateWeight(random_length);
+            random_weight=generateRandomNumbers(30,530,10);
+            max_length=generateSingleValue(6.0093178, 44.3, 10);
+            max_weight=generateSingleValue(30, 530, 10);
+            result_bins=algorithm.next_fit(max_weight, max_length, random_length, random_weight);
+            result=Float.toString(max_length)+", "+Float.toString(max_weight)+", "+getInputString(random_length)+", "+getInputString(random_weight)+", "+runALL(max_length, max_weight, random_length, random_weight)+"\n";
+            csv.addRow(result, filename+"3.csv");
+        }
+
 
         // List<String> sets=new ArrayList<String>();
         // sets.add("boxdataset-1k.csv");
@@ -400,7 +433,6 @@ class CSV{
         try (FileWriter writer = new FileWriter(csvFile,true)) {
             // Writing data to the CSV file
             writer.write(result);
-            System.out.println("Row has been added to " + csvFile);
         } catch (IOException e) {
             System.out.println(e);
             e.printStackTrace();
