@@ -48,5 +48,9 @@ Range Length :
 36<L<=45.7847091
 
 Results
-L_Range% shows csv files in which weight is independent on the side/length.
-LW_Range% shows csv files in which weight is dependent of the side/length.
+->L_Range% shows csv files in which weight is independent on the side/length.
+->LW_Range% shows csv files in which weight is dependent of the side/length.
+->LS_Range% shows csv files in which length array is sorted before giving as input and weight is independent on the side/length
+->LWS_Range% shows csv files in which length array is sorted before giving as input and weight is independednt on the side/length
+->LR_Range% shows csv files in which length array is in decreasing order before giving as input and weight in independent on the side/length
+->LWR_Range% shows csv files in which length array in in decreasing order before giving as input and weight in dependent on the side/length.

@@ -1,4 +1,5 @@
 package First;
+import java.util.*;
 // import java.io.BufferedReader;  
 import java.io.IOException;
 // import java.nio.charset.StandardCharsets;
@@ -60,6 +61,16 @@ public class home{
         return result;
     }
 
+    static float[] reverseFloatArray(float[] array) {
+        int length = array.length;
+        for (int i = 0; i < length / 2; i++) {
+            float temp = array[i];
+            array[i] = array[length - i - 1];
+            array[length - i - 1] = temp;
+        }
+        return array;
+    }
+
     public static void main(String args[]){
       
         // read data from csv
@@ -73,37 +84,43 @@ public class home{
         int result_bins;
         String result="";
         String header="Max_Length,Max_Weight,Input_Length,Input_Weight,Next_Fit,First_Fit,Best_Fit_W_L,Best_Fit_W_W\n";
-        String filename="./New_Results/L_Range";
+        String filename="./New_Results/LWS_Range";
+        
         csv.addHeader(header,filename+"1.csv");
-
-        for(int i=0;i<100;i++){
+        for(int i=0;i<1;i++){
             random_length=generateRandomNumbers(6.0093178,16,10);
-            // random_weight=generateWeight(random_length);
-            random_weight=generateRandomNumbers(30,530,10);
+            Arrays.sort(random_length);
+            // random_length=reverseFloatArray(random_length);
+            random_weight=generateWeight(random_length);
+            // random_weight=generateRandomNumbers(30,530,10);
             max_length=generateSingleValue(6.0093178, 44.3, 10);
             max_weight=generateSingleValue(30, 530, 10);
             result_bins=algorithm.next_fit(max_weight, max_length, random_length, random_weight);
             result=Float.toString(max_length)+", "+Float.toString(max_weight)+", "+getInputString(random_length)+", "+getInputString(random_weight)+", "+runALL(max_weight, max_length, random_length, random_weight)+"\n";
             csv.addRow(result, filename+"1.csv");
         }
-        csv.addHeader(header,filename+"2.csv");
 
+        csv.addHeader(header,filename+"2.csv");
         for(int i=0;i<100;i++){
             random_length=generateRandomNumbers(16,26,10);
-            // random_weight=generateWeight(random_length);
-            random_weight=generateRandomNumbers(30,530,10);
+            Arrays.sort(random_length);
+            // random_length=reverseFloatArray(random_length);
+            random_weight=generateWeight(random_length);
+            // random_weight=generateRandomNumbers(30,530,10);
             max_length=generateSingleValue(6.0093178, 44.3, 10);
             max_weight=generateSingleValue(30, 530, 10);
             result_bins=algorithm.next_fit(max_weight, max_length, random_length, random_weight);
             result=Float.toString(max_length)+", "+Float.toString(max_weight)+", "+getInputString(random_length)+", "+getInputString(random_weight)+", "+runALL(max_length,max_weight, random_length, random_weight)+"\n";
             csv.addRow(result, filename+"2.csv");
         }
-        csv.addHeader(header,filename+"3.csv");
 
+        csv.addHeader(header,filename+"3.csv");
         for(int i=0;i<100;i++){
             random_length=generateRandomNumbers(26,36,10);
-            // random_weight=generateWeight(random_length);
-            random_weight=generateRandomNumbers(30,530,10);
+            Arrays.sort(random_length);
+            // random_length=reverseFloatArray(random_length);
+            random_weight=generateWeight(random_length);
+            // random_weight=generateRandomNumbers(30,530,10);
             max_length=generateSingleValue(6.0093178, 44.3, 10);
             max_weight=generateSingleValue(30, 530, 10);
             result_bins=algorithm.next_fit(max_weight, max_length, random_length, random_weight);
