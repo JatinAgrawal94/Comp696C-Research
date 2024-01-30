@@ -1,4 +1,5 @@
 package First;
+import java.util.*;
 
 public class Algorithms {
    public int next_fit(Float max_w,Float max_l,float[] length,float[] weight){
@@ -42,7 +43,7 @@ public class Algorithms {
                 j++;
             }
             if(j==bins){
-                rem_l[bins]=max_l=length[i];
+                rem_l[bins]=max_l-length[i];
                 rem_w[bins]=max_w-weight[i];
                 bins++;
             }
@@ -113,4 +114,39 @@ public class Algorithms {
         }
         return res;
     }
+
+    int first_fit_D_H_2D(Float max_w,Float max_l,Float max_wd,float[] length,float[] weight,float[] width){
+        // here we have to arrange eleements by length and arrange on the width side.
+        int bins=0;
+        float[] rem_w=new float[weight.length];
+        float[] rem_l=new float[length.length];
+        float[] rem_wd=new float[width.length];
+        float occupied_height=0;
+        Arrays.sort(length);
+
+        // arrange rem_l according to height
+        int j=0;
+        for(int i=0;i<weight.length;i++){
+            j=0;
+            while(occupied_height<=max_l){
+            while(j<bins){
+                if(rem_w[j] >= weight[i] && rem_wd[j] >= width[i]){
+                    rem_w[j]=rem_w[j]-weight[i];
+                    rem_wd[j]=rem_wd[j]-width[i];
+                    break;
+                }
+                j++;
+            }
+            if(j==bins){
+                rem_wd[bins]=max_wd-width[i];
+                rem_w[bins]=max_w-weight[i];
+                rem_l[bins]=max_l-length[i];
+                occupied_height+=length[i];
+                bins++;
+            }
+        }
+        }
+        return bins;   
+    }
+
 }
