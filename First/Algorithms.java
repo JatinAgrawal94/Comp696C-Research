@@ -42,7 +42,7 @@ public class Algorithms {
                 }
                 j++;
             }
-            if(j==bins){
+            if(j==bins && max_l>=length[i] && max_w>=weight[i]){
                 rem_l[bins]=max_l-length[i];
                 rem_w[bins]=max_w-weight[i];
                 bins++;
@@ -72,7 +72,7 @@ public class Algorithms {
                 }
             }
     
-            if (min == (int)(max_w + 1))
+            if (min == (int)(max_w + 1) && max_w>=weight[i] && max_l>=length[i])
             {
                 rem_w[res] = max_w - weight[i];
                 rem_l[res] = max_l - length[i];
@@ -102,7 +102,7 @@ public class Algorithms {
                     min = (int)(rem_w[j] - weight[i]);
                 }
             }
-            if (min == (int)(max_w + 1))
+            if (min == (int)(max_w + 1) && max_w>=weight[i] && max_l>=length[i])
             {
                 rem_w[res] = max_w - weight[i];
                 rem_l[res] = max_l - length[i];
@@ -122,14 +122,15 @@ public class Algorithms {
         float[] rem_l=new float[length.length];
         float[] rem_wd=new float[width.length];
         float occupied_height=0;
-        Arrays.sort(length);
+        // Arrays.sort(length);
 
         // arrange rem_l according to height
         int j=0;
         for(int i=0;i<weight.length;i++){
             j=0;
-            while(occupied_height<=max_l){
+            // while(occupied_height<=max_l){
             while(j<bins){
+                // System.out.println(j);
                 if(rem_w[j] >= weight[i] && rem_wd[j] >= width[i]){
                     rem_w[j]=rem_w[j]-weight[i];
                     rem_wd[j]=rem_wd[j]-width[i];
@@ -137,14 +138,15 @@ public class Algorithms {
                 }
                 j++;
             }
-            if(j==bins){
+            if(j==bins && max_wd>=width[i] && max_w>=weight[i] && max_l>=length[i] && occupied_height<=max_l){
                 rem_wd[bins]=max_wd-width[i];
                 rem_w[bins]=max_w-weight[i];
                 rem_l[bins]=max_l-length[i];
+                // System.out.println(String.valueOf(rem_l[bins])+" "+String.valueOf(rem_wd[bins])+" "+String.valueOf(rem_w[bins]));
                 occupied_height+=length[i];
                 bins++;
             }
-        }
+        // }
         }
         return bins;   
     }
