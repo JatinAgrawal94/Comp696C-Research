@@ -1,5 +1,5 @@
 package First;
-import java.util.*;
+// import java.util.*;
 
 public class Algorithms {
    public int next_fit(Float max_w,Float max_l,float[] length,float[] weight){
