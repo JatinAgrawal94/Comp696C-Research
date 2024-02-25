@@ -28,6 +28,13 @@ public class home{
         }
         return weight;
     }
+    private static float[] generateWeight(float[] length,float[] width){
+        float[] weight=new float[10];
+        for(int i=0;i<weight.length;i++){
+            weight[i]=(float)(length[i]*width[i]*0.025*9.8);
+        }
+        return weight;
+    }
 
     private static String getInputString(float[] strig){
         String input="[";
@@ -48,6 +55,16 @@ public class home{
         result+=String.valueOf(alg.first_fit(max_w, max_l, length, weight))+",";
         result+=String.valueOf(alg.bestFit_D(max_w, max_l, length, weight))+",";
         result+=String.valueOf(alg.bestFit_Weight(max_w, max_l, length, weight));
+        return result;
+    }
+
+    static String runALL2(Float max_w,Float max_l,Float max_wd,float[] length,float[] weight,float[] width){
+        String result="";
+        Algorithms alg=new Algorithms();
+        result+=String.valueOf(alg.first_fit_D_H_2D(max_w, max_l,max_wd, length, weight,width));
+        // result+=String.valueOf(alg.first_fit(max_w, max_l, length, weight))+",";
+        // result+=String.valueOf(alg.bestFit_D(max_w, max_l, length, weight))+",";
+        // result+=String.valueOf(alg.bestFit_Weight(max_w, max_l, length, weight));
         return result;
     }
 
@@ -80,14 +97,7 @@ public class home{
             System.out.println("err");
         }
     }
-    void execution(int dimension){
-        // we need to generate on csv at a time
-        String[] arr={"L","LW","LS","LWS","LR","LWR"};
-
-        for(int i=0;i<arr.length;i++){
-            OneD_Cases(arr[i]);
-        }
-    }
+ 
 
     public static void main(String args[]){
       
@@ -103,50 +113,77 @@ public class home{
         String result="";
         String header="Max_Length,Max_Weight,Input_Length,Input_Weight,Next_Fit,First_Fit,Best_Fit_W_L,Best_Fit_W_W\n";
         String filename="";
-        
+        String header1="Max_Length,Max_Width,Max_Weight,Input_Length,Input_Width,Input_Weight,First_Fit_Dec_Height\n";
 
         String[] types_1={"L_Range","LS_Range","LR_Range","LW_Range","LWS_Range","LWR_Range"};
-        // String[] types_2={};
+        String[] types_2={"LWDW_Range","LWD_Range"};
         int l_begin=6;
         int w_begin=3;
+
         
         //  For length and Weight
-        for(int i=0;i<types_1.length;i++){
+        // for(int i=0;i<types_1.length;i++){
+        //     l_begin=6;
+        //     for(int j=0;j<4;j++){
+        //         filename="./Tests/"+types_1[i]+String.valueOf(j+1)+".csv";
+        //         csv.addHeader(header,filename);
+        //         // System.out.println(l_begin);
+        //         for(int k=0;k<100;k++){
+        //             random_length=generateRandomNumbers(l_begin,l_begin+10,10);
+        //             max_length=generateSingleValue(16, 46, 10);
+        //             max_weight=generateSingleValue(30, 530, 10);
+        //             // conditioning based on dependent and independent weight
+        //             if(i>=0 && i<=2){
+        //                 random_weight=generateRandomNumbers(30,530,10);
+        //                 if(types_1[i]=="LS_Range")
+        //                     Arrays.sort(random_length);
+        //                 else if(types_1[i]=="LR_Range")
+        //                     random_length=reverseFloatArray(random_length);
+        //             }else{
+        //                 random_weight=generateWeight(random_length);
+        //                 if(types_1[i]=="LWS_Range")
+        //                 Arrays.sort(random_length);
+        //                 else if(types_1[i]=="LWR_Range")
+        //                 random_length=reverseFloatArray(random_length);
+        //             }
+        //             result=Float.toString(max_length)+", "+Float.toString(max_weight)+", "+getInputString(random_length)+", "+getInputString(random_weight)+", "+runALL(max_weight, max_length, random_length, random_weight)+"\n";
+        //             csv.addRow(result,filename);
+        //         }
+        //         l_begin+=10;
+        //     }
+        // }
+        
+        // 2d
+        
+        for(int i=0;i<types_2.length;i++){
             l_begin=6;
-            // w_begin=3;
+            w_begin=3;
             for(int j=0;j<4;j++){
-                filename="./Tests/"+types_1[i]+String.valueOf(j+1)+".csv";
-                csv.addHeader(header,filename);
-                // System.out.println(l_begin);
+                filename="./Tests/"+types_2[i]+String.valueOf(j+1)+".csv";
+                csv.addHeader(header1,filename);
                 for(int k=0;k<100;k++){
                     random_length=generateRandomNumbers(l_begin,l_begin+10,10);
+                    random_width=generateRandomNumbers(w_begin,w_begin+7,10);
                     max_length=generateSingleValue(16, 46, 10);
                     max_weight=generateSingleValue(30, 530, 10);
-                    // conditioning based on dependent and independent weight
-                    if(i>=0 && i<=2){
-                        random_weight=generateRandomNumbers(30,530,10);
-                        if(types_1[i]=="LS_Range")
-                            Arrays.sort(random_length);
-                        else if(types_1[i]=="LR_Range")
-                            random_length=reverseFloatArray(random_length);
-                    }else{
-                        random_weight=generateWeight(random_length);
-                        if(types_1[i]=="LWS_Range")
-                        Arrays.sort(random_length);
-                        else if(types_1[i]=="LWR_Range")
-                        random_length=reverseFloatArray(random_length);
-                    }
-                    result=Float.toString(max_length)+", "+Float.toString(max_weight)+", "+getInputString(random_length)+", "+getInputString(random_weight)+", "+runALL(max_weight, max_length, random_length, random_weight)+"\n";
+                    max_width=generateSingleValue(3,31, 10);
+                    // algorithm.first_fit_D_H_2D(max_weight, max_length, max_width, random_length, random_weight, random_width);
+                        if(types_2[i]=="LWDW_Range"){
+                            random_weight=generateWeight(random_length);
+                        }
+                        else if(types_2[i]=="LWD_Range"){
+                            random_weight=generateRandomNumbers(30,530,10);
+                        }
+                    result=Float.toString(max_length)+", "+Float.toString(max_width)+", "+Float.toString(max_weight)+", "+getInputString(random_length)+", "+getInputString(random_width)+", "+getInputString(random_weight)+", "+runALL2(max_weight, max_length, max_width,random_length, random_weight,random_width)+"\n";
                     csv.addRow(result,filename);
+                    }
+                    l_begin+=10;
+                    w_begin+=7;
                 }
-                l_begin+=10;
-                // w_begin+=7;
-
             }
         }
- 
-    }
-}
+    }       
+
 
 class CSV{
     public float[][] data;

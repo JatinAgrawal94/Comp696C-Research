@@ -1,6 +1,9 @@
 package First;
 // import java.util.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Algorithms {
    public int next_fit(Float max_w,Float max_l,float[] length,float[] weight){
         int bins = 0;
@@ -115,6 +118,18 @@ public class Algorithms {
         return res;
     }
 
+    public static void insertionSort(TripleMap[] arr) {
+        for (int i = 1; i < arr.length; i++) {
+            TripleMap key =arr[i];
+            int j = i - 1;
+            while (j >= 0 && Float.parseFloat(arr[j].map1.get("length")) < Float.parseFloat(key.map1.get("length"))) {
+                arr[j + 1] = arr[j];
+                j = j - 1;
+            }
+            arr[j + 1] = key;
+        }
+    }
+    
     int first_fit_D_H_2D(Float max_w,Float max_l,Float max_wd,float[] length,float[] weight,float[] width){
         // here we have to arrange eleements by length and arrange on the width side.
         int bins=0;
@@ -122,15 +137,27 @@ public class Algorithms {
         float[] rem_l=new float[length.length];
         float[] rem_wd=new float[width.length];
         float occupied_height=0;
-        // Arrays.sort(length);
-
+        // jatin home.java home.class Algorithm.java bash Researchjava I feel lazu a
+        TripleMap[] array=new TripleMap[10];
+        for(int i=0;i<10;i++){
+           array[i]=new TripleMap();
+        }
+        for(int i=0;i<10;i++){
+            array[i].map1.put("length", Float.toString(length[i]));
+            array[i].map2.put("width", Float.toString(width[i]));
+            array[i].map3.put("weight", Float.toString(weight[i]));
+        }
+        insertionSort(array);
+        for(int i=0;i<10;i++){
+            length[i]=Float.parseFloat(array[i].map1.get("length"));
+            width[i]=Float.parseFloat(array[i].map2.get("width"));
+            weight[i]=Float.parseFloat(array[i].map3.get("weight"));
+        }
         // arrange rem_l according to height
         int j=0;
         for(int i=0;i<weight.length;i++){
             j=0;
-            // while(occupied_height<=max_l){
             while(j<bins){
-                // System.out.println(j);
                 if(rem_w[j] >= weight[i] && rem_wd[j] >= width[i]){
                     rem_w[j]=rem_w[j]-weight[i];
                     rem_wd[j]=rem_wd[j]-width[i];
@@ -142,13 +169,20 @@ public class Algorithms {
                 rem_wd[bins]=max_wd-width[i];
                 rem_w[bins]=max_w-weight[i];
                 rem_l[bins]=max_l-length[i];
-                // System.out.println(String.valueOf(rem_l[bins])+" "+String.valueOf(rem_wd[bins])+" "+String.valueOf(rem_w[bins]));
                 occupied_height+=length[i];
-                bins++;
+                if(occupied_height<=max_l){
+                    bins++;
+                }else{
+                    if(j<length.length){
+                        j++;
+                    }else{
+                        break;
+                    }
+                }
             }
-        // }
         }
         return bins;   
     }
-
 }
+
+

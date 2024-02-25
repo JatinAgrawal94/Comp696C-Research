@@ -47,6 +47,12 @@ Range Length :
 
 36<L<=45.7847091
 
+Range width:
+3<=w<=10
+10<w<=17
+17<w<=24
+24<w<=31
+
 Results
 ->L_Range% shows csv files in which weight is independent on the side/length.
 ->LW_Range% shows csv files in which weight is dependent of the side/length.
@@ -55,4 +61,6 @@ Results
 ->LR_Range% shows csv files in which length array is in decreasing order before giving as input and weight in independent on the side/length
 ->LWR_Range% shows csv files in which length array in in decreasing order before giving as input and weight in dependent on the side/length.
 
-->
+For 2D
+-> LWD_Range% shows csv files in which weight is independent of the lenght and width.
+-> LWDW_Range% shows csv files in which weight is dependent of the length and width.
