@@ -9,6 +9,7 @@ public class home{
     public static double getRandomNumber(double min, double max){
         return  ((Math.random() * (max - min)) + min);
     }
+
     private static float[] generateRandomNumbers(double minValue, double maxValue, int count) {
         float[] randomnumbers=new float[count];
         for(int i=0;i<count;i++){
@@ -16,11 +17,13 @@ public class home{
         }
         return randomnumbers;
     }
+
     private static float generateSingleValue(double minValue, double maxValue, int count) {
         float randomnumbers;
         randomnumbers=(float)((Math.random() * (maxValue - minValue + 1) + minValue));
         return randomnumbers;
     }
+
     private static float[] generateWeight(float[] length){
         float[] weight=new float[10];
         for(int i=0;i<weight.length;i++){
@@ -28,6 +31,7 @@ public class home{
         }
         return weight;
     }
+
     private static float[] generateWeight(float[] length,float[] width){
         float[] weight=new float[10];
         for(int i=0;i<weight.length;i++){
@@ -61,10 +65,9 @@ public class home{
     static String runALL2(Float max_w,Float max_l,Float max_wd,float[] length,float[] weight,float[] width){
         String result="";
         Algorithms alg=new Algorithms();
-        result+=String.valueOf(alg.first_fit_D_H_2D(max_w, max_l,max_wd, length, weight,width));
-        // result+=String.valueOf(alg.first_fit(max_w, max_l, length, weight))+",";
-        // result+=String.valueOf(alg.bestFit_D(max_w, max_l, length, weight))+",";
-        // result+=String.valueOf(alg.bestFit_Weight(max_w, max_l, length, weight));
+        result+=String.valueOf(alg.first_fit_D_H_2D(max_w, max_l,max_wd, length, weight,width))+",";
+        result+=String.valueOf(alg.next_fit_D_H_2D(max_w, max_l,max_wd, length, weight,width))+",";
+        result+=String.valueOf(alg.best_fit_D_H_2D(max_w, max_l,max_wd, length, weight,width))+",";
         return result;
     }
 
@@ -85,22 +88,9 @@ public class home{
             array[length - i - 1] = temp;
         }
         return array;
-    }
-
-    void OneD_Cases(String value){
-        // we need to execute all ranges here jatin so what do we even do jatin?
-        
-        switch (value){
-            case "L":
-            break;
-            default:
-            System.out.println("err");
-        }
-    }
- 
+    } 
 
     public static void main(String args[]){
-      
         // read data from csv
         Algorithms algorithm=new Algorithms();
         CSV csv=new CSV();
@@ -113,13 +103,13 @@ public class home{
         String result="";
         String header="Max_Length,Max_Weight,Input_Length,Input_Weight,Next_Fit,First_Fit,Best_Fit_W_L,Best_Fit_W_W\n";
         String filename="";
-        String header1="Max_Length,Max_Width,Max_Weight,Input_Length,Input_Width,Input_Weight,First_Fit_Dec_Height\n";
+        String header1="Max_Length,Max_Width,Max_Weight,Input_Length,Input_Width,Input_Weight,First_Fit_Dec_Height,Next_Fit_Dec_Height,Best_Fit_Dec_Height,\n";
 
         String[] types_1={"L_Range","LS_Range","LR_Range","LW_Range","LWS_Range","LWR_Range"};
         String[] types_2={"LWDW_Range","LWD_Range"};
         int l_begin=6;
         int w_begin=3;
-
+        
         
         //  For length and Weight
         // for(int i=0;i<types_1.length;i++){
@@ -183,7 +173,6 @@ public class home{
             }
         }
     }       
-
 
 class CSV{
     public float[][] data;

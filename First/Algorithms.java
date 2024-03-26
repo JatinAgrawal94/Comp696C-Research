@@ -1,8 +1,8 @@
 package First;
 // import java.util.*;
-
 import java.util.HashMap;
 import java.util.Map;
+
 
 public class Algorithms {
    public int next_fit(Float max_w,Float max_l,float[] length,float[] weight){
@@ -26,7 +26,7 @@ public class Algorithms {
                 rem_w = max_w - weight[i];
             }
         }
-    return bins;
+     return bins;
     }
 
     int first_fit(Float max_w,Float max_l,float[] length,float[] weight){
@@ -54,9 +54,7 @@ public class Algorithms {
         return bins;   
     }
 
-   int bestFit_Weight(Float max_w,Float max_l,float[] length,float[] weight)
-    {   
-        
+   int bestFit_Weight(Float max_w,Float max_l,float[] length,float[] weight){   
         float[] rem_w=new float[weight.length];
         float[] rem_l=new float[weight.length];
         int res = 0;
@@ -87,8 +85,8 @@ public class Algorithms {
         }        
         return res;
     }
-    int bestFit_D(Float max_w,Float max_l,float[] length,float[] weight)
-    {   
+
+    int bestFit_D(Float max_w,Float max_l,float[] length,float[] weight){   
         float[] rem_w=new float[weight.length];
         float[] rem_l=new float[weight.length];
         int res = 0;
@@ -182,7 +180,86 @@ public class Algorithms {
             }
         }
         return bins;   
+    }    
+    int next_fit_D_H_2D(Float max_w,Float max_l,Float max_wd,float[] length,float[] weight,float[] width){
+        int bins = 0;
+        Float rem_w = max_w;
+        Float rem_l = max_l;
+        Float rem_wd=max_wd;
+        // float[] rem_wd=new float[width.length];
+        float occupied_height=0;
+
+        TripleMap[] array=new TripleMap[10];
+        for(int i=0;i<10;i++){
+           array[i]=new TripleMap();
+        }
+        for(int i=0;i<10;i++){
+            array[i].map1.put("length", Float.toString(length[i]));
+            array[i].map2.put("width", Float.toString(width[i]));
+            array[i].map3.put("weight", Float.toString(weight[i]));
+        }
+        insertionSort(array);
+        for(int i=0;i<10;i++){
+            length[i]=Float.parseFloat(array[i].map1.get("length"));
+            width[i]=Float.parseFloat(array[i].map2.get("width"));
+            weight[i]=Float.parseFloat(array[i].map3.get("weight"));
+        }
+
+        for(int i=0;i<weight.length;i++){
+            if (bins == 0){
+                bins += 1;
+                // rem_l -= length[i];
+                rem_wd-=width[i];
+                rem_w -= weight[i];
+                occupied_height+=length[i];
+            }
+            else if(width[i] <= rem_wd && weight[i] <= rem_w){
+                rem_wd -= width[i];
+                rem_w -= weight[i];
+            }
+            else if(width[i] <= max_wd && weight[i] <= max_w && occupied_height<=max_l){
+                bins += 1;
+                rem_wd = max_wd - width[i];
+                rem_w = max_w - weight[i];
+                occupied_height+=length[i];
+            }
+        }    
+        return bins;
+    }
+    int best_fit_D_H_2D(Float max_w,Float max_l,Float max_wd,float[] length,float[] weight,float[] width){
+        float[] rem_w=new float[weight.length];
+        float[] rem_l=new float[weight.length];
+        float[] rem_wd=new float[width.length];
+        int res = 0;
+        int min,bi;
+        for (int i = 0; i < weight.length; i++) 
+        {
+             min = (int)(max_w+1);
+             bi = 0;
+    
+            for (int j = 0; j < res; j++) 
+            {
+                if (rem_w[j] >= weight[i] && rem_wd[j] >= width[i] && rem_w[j] - weight[i] < min)
+                {
+                    bi = j;
+                    min = (int)(rem_w[j] - weight[i]);
+                }
+            }
+    
+            if (min == (int)(max_w + 1) && max_w>=weight[i] && max_wd>=width[i])
+            {
+                rem_w[res] = max_w - weight[i];
+                rem_wd[res] = max_wd - width[i];
+                res=res+ 1;
+            }
+            else // Assign the item to best bin
+                rem_w[bi] -= weight[i];
+                rem_wd[bi] -= width[i];
+        }        
+        return res;
     }
 }
+
+
 
 

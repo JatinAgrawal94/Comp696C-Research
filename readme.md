@@ -9,42 +9,33 @@ Datasets: 1_D_Test2_input_Length.csv,1_D_Test2_input_Width.csv,1_D_Test2_input_H
 
 Test 3: Dataset selected on basis of distribution of weight in the boxdataset-20k.csv name:1_D_Test3_onput_WL150
 1 datasets having weight<150 
-
 test 4: Dataset selected boxdataset-100k.csv where weight>200
 name=1_D_Test4_input_WG200
-
 
 Approach:
 
 1) get range of values for the length, weight and height
 
-generate length values 500 times
+generate length values 100 times
 
-length within range   6.0093178<L< 45.7847091
+length within range   6.0093178 < L < 45.78470910               
 
-wdith within range  3.2811031<W<30.9996443
+width within range  3.2811031 < W <30.9996443
 
-height within range 1.0124164<H<35.9998188
-
+height within range 1.0124164 < H < 35.9998188
 
 max_length in range 6.0093178 < max_length < 44.3
 
 max_weight in range  30 < max_weight < 530
 
-
 generate 10 values for each range 500 times
 
 we get 500 values as output or required bins.
 
-
 Range Length :
-
 6.0093178<=L<=16
-
 16<L<=26
-
 26<L<=36
-
 36<L<=45.7847091
 
 Range width:
@@ -53,14 +44,24 @@ Range width:
 17<w<=24
 24<w<=31
 
+Range width:
+1<=h<=9
+9<h<=18
+18<h<=27
+27<h<=36
+
+
 Results
 ->L_Range% shows csv files in which weight is independent on the side/length.
 ->LW_Range% shows csv files in which weight is dependent of the side/length.
-->LS_Range% shows csv files in which length array is sorted before giving as input and weight is independent on the side/length
-->LWS_Range% shows csv files in which length array is sorted before giving as input and weight is dependednt on the side/length
-->LR_Range% shows csv files in which length array is in decreasing order before giving as input and weight in independent on the side/length
+->LS_Range% shows csv files in which length array is sorted before giving as input and weight is independent on the side/length.
+->LWS_Range% shows csv files in which length array is sorted before giving as input and weight is dependednt on the side/length.
+->LR_Range% shows csv files in which length array is in decreasing order before giving as input and weight in independent on the side/length.
 ->LWR_Range% shows csv files in which length array in in decreasing order before giving as input and weight in dependent on the side/length.
 
 For 2D
 -> LWD_Range% shows csv files in which weight is independent of the lenght and width.
 -> LWDW_Range% shows csv files in which weight is dependent of the length and width.
+
+For 3d.
+we need to figure out an algorithm for it.
