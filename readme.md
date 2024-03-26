@@ -32,36 +32,35 @@ generate 10 values for each range 500 times
 
 we get 500 values as output or required bins.
 
-Range Length :
-6.0093178<=L<=16
-16<L<=26
-26<L<=36
-36<L<=45.7847091
+Range Length :  
+6.0093178<=L<=16  
+16<L<=26  
+26<L<=36  
+36<L<=45.7847091  
 
-Range width:
-3<=w<=10
-10<w<=17
-17<w<=24
-24<w<=31
+Range width:  
+3<=w<=10  
+10<w<=17  
+17<w<=24  
+24<w<=31  
 
-Range width:
-1<=h<=9
-9<h<=18
-18<h<=27
-27<h<=36
+Range width:  
+1<=h<=9  
+9<h<=18  
+18<h<=27  
+27<h<=36  
 
+Results  
+->L_Range% shows csv files in which weight is independent on the side/length.  
+->LW_Range% shows csv files in which weight is dependent of the side/length.  
+->LS_Range% shows csv files in which length array is sorted before giving as input and weight is independent on the side/length.  
+->LWS_Range% shows csv files in which length array is sorted before giving as input and weight is dependednt on the side/length.  
+->LR_Range% shows csv files in which length array is in decreasing order before giving as input and weight in independent on the side/length.  
+->LWR_Range% shows csv files in which length array in in decreasing order before giving as input and weight in dependent on the side/length.  
 
-Results
-->L_Range% shows csv files in which weight is independent on the side/length.
-->LW_Range% shows csv files in which weight is dependent of the side/length.
-->LS_Range% shows csv files in which length array is sorted before giving as input and weight is independent on the side/length.
-->LWS_Range% shows csv files in which length array is sorted before giving as input and weight is dependednt on the side/length.
-->LR_Range% shows csv files in which length array is in decreasing order before giving as input and weight in independent on the side/length.
-->LWR_Range% shows csv files in which length array in in decreasing order before giving as input and weight in dependent on the side/length.
+For 2D  
+-> LWD_Range% shows csv files in which weight is independent of the lenght and width.  
+-> LWDW_Range% shows csv files in which weight is dependent of the length and width.  
 
-For 2D
--> LWD_Range% shows csv files in which weight is independent of the lenght and width.
--> LWDW_Range% shows csv files in which weight is dependent of the length and width.
-
-For 3d.
-we need to figure out an algorithm for it.
+For 3d.  
+we need to figure out an algorithm for it.  
