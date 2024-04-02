@@ -46,9 +46,9 @@ Range width:
 
 Range width:  
 1<=h<=9  
-9<h<=18  
-18<h<=27  
-27<h<=36  
+9<h<=17  
+17<h<=25  
+25<h<=33 
 
 Results  
 ->L_Range% shows csv files in which weight is independent on the side/length.  
@@ -64,3 +64,4 @@ For 2D
 
 For 3d.  
 we need to figure out an algorithm for it.  
+Fitst fit Decreasing height actual height.

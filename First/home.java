@@ -40,6 +40,14 @@ public class home{
         return weight;
     }
 
+    private static float[] generateWeight(float[] length,float[] width,float[] height){
+        float[] weight=new float[10];
+        for(int i=0;i<weight.length;i++){
+            weight[i]=(float)(length[i]*width[i]*height[i]*0.025*9.8);
+        }
+        return weight;
+    }
+
     private static String getInputString(float[] strig){
         String input="[";
         for(int i=0;i<strig.length;i++){
@@ -65,9 +73,20 @@ public class home{
     static String runALL2(Float max_w,Float max_l,Float max_wd,float[] length,float[] weight,float[] width){
         String result="";
         Algorithms alg=new Algorithms();
-        result+=String.valueOf(alg.first_fit_D_H_2D(max_w, max_l,max_wd, length, weight,width))+",";
+        // result+=String.valueOf(alg.first_fit_D_H_2D(max_w, max_l,max_wd, length, weight,width))+",";
+        result+=String.valueOf(alg.first_fit_D_H_2D(length, width,weight,max_l,max_wd,max_w))+",";
         result+=String.valueOf(alg.next_fit_D_H_2D(max_w, max_l,max_wd, length, weight,width))+",";
-        result+=String.valueOf(alg.best_fit_D_H_2D(max_w, max_l,max_wd, length, weight,width))+",";
+        // result+=String.valueOf(alg.best_fit_D_H_2D(max_w, max_l,max_wd, length, weight,width))+",";
+        result+=String.valueOf(alg.best_fit_D_H_2D(length, width,weight,max_l,max_wd,max_w))+",";
+        return result;
+    }
+
+    static String runALL3(Float max_w,Float max_l,Float max_wd,Float max_h,float[] length,float[] weight,float[] width,float[] height){
+        String result=" ";
+        Algorithms alg=new Algorithms();
+        result+=String.valueOf(alg.first_fit_D_H_3D(length, width,height,weight,max_l,max_wd,max_h,max_w))+",";
+        result+=String.valueOf(alg.next_fit_D_H_3D(max_w, max_l,max_h,max_wd, length, weight,width,height))+",";
+        result+=String.valueOf(alg.best_fit_D_H_3D(length, width,height,weight,max_l,max_wd,max_h,max_w))+",";
         return result;
     }
 
@@ -97,9 +116,11 @@ public class home{
         float[] random_length=new float[10];
         float[] random_width=new float[10];
         float[] random_weight=new float[10];
+        float[] random_height=new float[10];
         float max_length=0;
         float max_weight=0;
         float max_width=0;
+        float max_height=0;
         String result="";
         String header="Max_Length,Max_Weight,Input_Length,Input_Weight,Next_Fit,First_Fit,Best_Fit_W_L,Best_Fit_W_W\n";
         String filename="";
@@ -107,9 +128,10 @@ public class home{
 
         String[] types_1={"L_Range","LS_Range","LR_Range","LW_Range","LWS_Range","LWR_Range"};
         String[] types_2={"LWDW_Range","LWD_Range"};
+
         int l_begin=6;
         int w_begin=3;
-        
+        int h_begin=1;
         
         //  For length and Weight
         // for(int i=0;i<types_1.length;i++){
@@ -157,9 +179,8 @@ public class home{
                     max_length=generateSingleValue(16, 46, 10);
                     max_weight=generateSingleValue(30, 530, 10);
                     max_width=generateSingleValue(3,31, 10);
-                    // algorithm.first_fit_D_H_2D(max_weight, max_length, max_width, random_length, random_weight, random_width);
                         if(types_2[i]=="LWDW_Range"){
-                            random_weight=generateWeight(random_length);
+                            random_weight=generateWeight(random_length,random_width);
                         }
                         else if(types_2[i]=="LWD_Range"){
                             random_weight=generateRandomNumbers(30,530,10);
@@ -171,6 +192,39 @@ public class home{
                     w_begin+=7;
                 }
             }
+
+            /*  for(int i=0;i<types_2.length;i++){
+                l_begin=6;
+                w_begin=3;
+                h_begin=1;
+                // Range == 4
+                for(int j=0;j<4;j++){
+                    filename="./Tests/"+types_2[i]+String.valueOf(j+1)+"_3D"+".csv";
+                    csv.addHeader(header1,filename);
+                    for(int k=0;k<100;k++){
+                        random_length=generateRandomNumbers(l_begin,l_begin+10,10);
+                        random_width=generateRandomNumbers(w_begin,w_begin+7,10);
+                        random_height=generateRandomNumbers(w_begin,w_begin+7,10);
+                        max_length=generateSingleValue(16, 46, 10);
+                        max_weight=generateSingleValue(30, 530, 10);
+                        max_width=generateSingleValue(3,31, 10);
+                        max_height=generateSingleValue(1,33, 10);
+                            if(types_2[i]=="LWDW_Range"){
+                                random_weight=generateWeight(random_length,random_weight,random_height);
+                            }
+                            else if(types_2[i]=="LWD_Range"){
+                                random_weight=generateRandomNumbers(30,530,10);
+                            }
+                        result=Float.toString(max_length)+", "+Float.toString(max_width)+", "+Float.toString(max_weight)+", "+getInputString(random_length)+", "+getInputString(random_width)+", "+getInputString(random_weight)+", "+runALL3(max_weight, max_length, max_width,max_height,random_length, random_weight,random_width,random_height)+"\n";
+                        csv.addRow(result,filename);
+                        }
+                        l_begin+=10;
+                        w_begin+=7;
+                        h_begin+=8;
+                    }
+                }*/
+
+
         }
     }       
 
